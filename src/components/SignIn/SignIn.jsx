@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styles from './SignIn.module.scss'
 
 const SignIn = () => {
@@ -14,7 +15,11 @@ const SignIn = () => {
       </label>
       <input className={styles['form-submit']} type="submit" value="Login" />
       <span className={styles['form-span']}>
-        Don’t have an account? <a href="#">Sign Up</a>.
+        Don’t have an account?{' '}
+        <Link className={styles['form-span__link']} to="/sign-up">
+          Sign Up
+        </Link>
+        .
       </span>
     </form>
   )

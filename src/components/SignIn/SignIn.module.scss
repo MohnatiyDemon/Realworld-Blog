@@ -33,14 +33,18 @@ $highlight-color: #f5222d;
 }
 
 .form-input {
-  border-color: #d9d9d9;
+  border: 1px solid #d9d9d9;
   border-radius: 4px;
   padding: 8px 12px;
   font-size: 16px;
   color: #bfbfbf;
   &:focus {
     border-color: $submit-button-color;
-    outline-style: none;
+    outline: none;
+  }
+  &:hover {
+    border-color: $submit-button-color;
+    outline: none;
   }
 }
 
@@ -55,4 +59,8 @@ $highlight-color: #f5222d;
   font-size: 12px;
   color: #8c8c8c;
   text-align: center;
+  &__link {
+    text-decoration: none;
+    color: $submit-button-color;
+  }
 }

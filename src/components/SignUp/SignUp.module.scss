@@ -33,7 +33,7 @@ $highlight-color: #f5222d;
 }
 
 .form-input {
-  border-color: #d9d9d9;
+  border: 1px solid #d9d9d9;
   border-radius: 4px;
   padding: 8px 12px;
   font-size: 16px;
@@ -41,11 +41,11 @@ $highlight-color: #f5222d;
   transition: all 0.1s ease;
   &:focus {
     border-color: $submit-button-color;
-    outline-style: none;
+    outline: none;
   }
   &:hover {
     border-color: $submit-button-color;
-    outline-style: none;
+    outline: none;
   }
 }
 
@@ -60,10 +60,33 @@ $highlight-color: #f5222d;
   font-size: 12px;
   color: #8c8c8c;
   text-align: center;
+  &__link {
+    text-decoration: none;
+    color: $submit-button-color;
+  }
+}
+
+.form-checkbox {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.form-custom-checkbox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 20px;
+  background-image: url('../../assets/checkboxes/CheckboxDisable.svg');
+  background-size: cover;
+  cursor: pointer;
+  &--active {
+    background-image: url('../../assets/checkboxes/CheckboxActive.svg');
+  }
 }
 
 .flex {
   display: flex;
-  gap: 8px;
-  align-items: flex-start;
+  gap: 10px;
 }
