@@ -3,7 +3,7 @@ $primary-text-color: #262626;
 $submit-button-color: #1890ff;
 $highlight-color: #f5222d;
 
-.SignIn {
+.SignUp {
   margin: 60px auto auto auto;
   padding: 48px 32px;
   color: $primary-text-color;
@@ -38,7 +38,12 @@ $highlight-color: #f5222d;
   padding: 8px 12px;
   font-size: 16px;
   color: #bfbfbf;
+  transition: all 0.1s ease;
   &:focus {
+    border-color: $submit-button-color;
+    outline-style: none;
+  }
+  &:hover {
     border-color: $submit-button-color;
     outline-style: none;
   }
@@ -55,4 +60,10 @@ $highlight-color: #f5222d;
   font-size: 12px;
   color: #8c8c8c;
   text-align: center;
+}
+
+.flex {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
 }

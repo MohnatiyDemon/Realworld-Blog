@@ -1,19 +1,20 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styles from './Header.module.scss'
 
 const Header = () => {
   return (
     <header className={styles.Header}>
-      <li>
+      <Link to="/">
         <button className={`${styles.Home} ${styles.button}`}>Realworld Blog</button>
-      </li>
+      </Link>
       <div className={styles.flex}>
-        <li>
+        <Link to="/sign-in">
           <button className={`${styles.SignIn} ${styles.button}`}>Sign In</button>
-        </li>
-        <li>
+        </Link>
+        <Link to="/sign-up">
           <button className={`${styles.SignUp} ${styles.button}`}>Sign Up</button>
-        </li>
+        </Link>
       </div>
     </header>
   )
