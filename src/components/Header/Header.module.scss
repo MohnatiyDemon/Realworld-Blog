@@ -1,0 +1,50 @@
+$background-color-base: #ffffff;
+$heading-color: #000000d9;
+$success-color: #52c41a;
+$hover-color: #4096ff;
+
+.Header {
+  background-color: $background-color-base;
+  font-size: 18px;
+  height: 80px;
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none; // потом удали
+}
+
+.Home {
+  &:hover {
+    color: $hover-color;
+  }
+}
+
+.SignIn {
+  border: 1px solid transparent;
+  border-radius: 5px;
+  &:hover {
+    color: $hover-color;
+    border-color: $hover-color;
+  }
+}
+
+.SignUp {
+  color: $success-color;
+  border: 1px solid $success-color;
+  border-radius: 5px;
+  &:hover {
+    color: $hover-color;
+    border-color: $hover-color;
+  }
+}
+
+.flex {
+  display: flex;
+  gap: 10px;
+}
+
+.button {
+  padding: 10px 20px;
+  transition: all 0.1s ease;
+}
