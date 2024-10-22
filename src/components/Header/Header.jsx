@@ -5,7 +5,7 @@ import styles from './Header.module.scss'
 const Header = () => {
   return (
     <header className={styles.Header}>
-      <Link to="/articles">
+      <Link to="/">
         <button className={`${styles.Home} ${styles.button}`}>Realworld Blog</button>
       </Link>
       <div className={styles.flex}>
