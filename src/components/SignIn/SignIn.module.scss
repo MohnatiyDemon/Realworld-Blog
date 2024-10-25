@@ -63,3 +63,8 @@ $highlight-color: #f5222d;
     color: $submit-button-color;
   }
 }
+
+.error-message {
+  color: $highlight-color;
+  font-size: 14px;
+}

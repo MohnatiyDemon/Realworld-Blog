@@ -89,3 +89,14 @@ $highlight-color: #f5222d;
   display: flex;
   gap: 10px;
 }
+
+.error-message {
+  color: $highlight-color;
+  font-size: 14px;
+}
+
+.error-checkbox {
+  color: $highlight-color;
+  margin-top: -10px;
+  font-size: 12px;
+}

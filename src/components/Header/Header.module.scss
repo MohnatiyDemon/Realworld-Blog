@@ -11,7 +11,6 @@ $hover-color: #4096ff;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  list-style: none; // потом удали
 }
 
 .Home {
@@ -42,9 +41,16 @@ $hover-color: #4096ff;
 .flex {
   display: flex;
   gap: 10px;
+  @media screen and (max-width: 460px) {
+    flex-direction: column;
+    gap: 5;
+  }
 }
 
 .button {
   padding: 10px 20px;
   transition: all 0.1s ease;
+  @media screen and (max-width: 460px) {
+    padding: 5px 20px;
+  }
 }

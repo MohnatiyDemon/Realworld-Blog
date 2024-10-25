@@ -1,5 +1,6 @@
 import { LoadingOutlined } from '@ant-design/icons'
 import { Spin } from 'antd'
+import Markdown from 'react-markdown'
 import { useParams } from 'react-router-dom'
 import defaultAvatar from '../../assets/images/defaultAvatar.svg'
 import { useGetAnArticleQuery } from '../../features/api/blogApi'
@@ -46,7 +47,7 @@ const ArticlePage = () => {
           <img className={styles.avatar} src={author.image || defaultAvatar} alt="avatar" onError={handleImageError} />
         </div>
       </div>
-      <p className={styles.content}>{body}</p>
+      <Markdown className={styles.Markdown}>{body}</Markdown>
     </section>
   )
 }
