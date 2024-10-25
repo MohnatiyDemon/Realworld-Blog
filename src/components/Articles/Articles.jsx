@@ -1,5 +1,5 @@
 import { LoadingOutlined } from '@ant-design/icons'
-import { Spin } from 'antd'
+import { Pagination, Spin } from 'antd'
 import React from 'react'
 import { useGetArticlesQuery } from '../../features/api/blogApi'
 import Article from '../Article/Article'
@@ -26,8 +26,11 @@ const Articles = () => {
           image={item.author.image}
           favoritesCount={item.favoritesCount}
           author={item.author}
+          slug={item.slug}
         />
       ))}
+      <Pagination className={styles.Pagination} align="center" defaultCurrent={1} total={data.articlesCount} />
+      <br />
     </>
   )
 }

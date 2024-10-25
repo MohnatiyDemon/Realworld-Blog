@@ -1,10 +1,16 @@
+import { useNavigate } from 'react-router-dom'
 import defaultAvatar from '../../assets/images/defaultAvatar.svg'
 import { formatDate } from '../../utils/formatDate'
 import styles from './Article.module.scss'
 
-const Article = ({ title, description, tagList, updatedAt, image, favoritesCount, author }) => {
+const Article = ({ slug, title, description, tagList, updatedAt, image, favoritesCount, author }) => {
+  const navigate = useNavigate()
+
+  const handleArticleOpenClick = () => {
+    navigate(`/article/${slug}`)
+  }
   return (
-    <article className={styles.Article}>
+    <article className={styles.Article} onClick={handleArticleOpenClick}>
       <div className={styles['flex-body']}>
         <div className={styles['flex-title']}>
           <h2 className={styles.title}>{title}</h2>
