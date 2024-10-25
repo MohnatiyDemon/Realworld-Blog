@@ -19,6 +19,9 @@ $info-color: #1890ff;
 .flex-container {
   display: flex;
   justify-content: space-between;
+  @media screen and (max-width: 460px) {
+    flex-direction: column;
+  }
 }
 
 .title {
@@ -101,9 +104,16 @@ $info-color: #1890ff;
   align-items: flex-start;
   width: 700px;
   word-break: break-all;
+  @media screen and (max-width: 460px) {
+    order: 0;
+  }
 }
 
 .flex-profile {
   display: flex;
   gap: 12px;
+  @media screen and (max-width: 460px) {
+    order: -1;
+    margin-bottom: 20px;
+  }
 }
