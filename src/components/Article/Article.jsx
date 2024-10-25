@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import defaultAvatar from '../../assets/images/defaultAvatar.svg'
 import { formatDate } from '../../utils/formatDate'
+import handleImageError from '../../utils/handleImageError'
 import styles from './Article.module.scss'
 
 const Article = ({ slug, title, description, tagList, updatedAt, image, favoritesCount, author }) => {
@@ -9,6 +10,7 @@ const Article = ({ slug, title, description, tagList, updatedAt, image, favorite
   const handleArticleOpenClick = () => {
     navigate(`/article/${slug}`)
   }
+
   return (
     <article className={styles.Article} onClick={handleArticleOpenClick}>
       <div className={styles['flex-body']}>
@@ -34,7 +36,7 @@ const Article = ({ slug, title, description, tagList, updatedAt, image, favorite
           <span className={styles.username}>{author?.username || 'Unknown Author'}</span>
           <span className={styles['post-date']}>{formatDate(updatedAt)}</span>
         </div>
-        <img className={styles.avatar} src={image || defaultAvatar} alt="avatar" />
+        <img className={styles.avatar} src={image || defaultAvatar} alt="avatar" onError={handleImageError} />
       </div>
     </article>
   )

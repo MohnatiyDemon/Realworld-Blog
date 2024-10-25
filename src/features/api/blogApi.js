@@ -10,7 +10,7 @@ export const blogApi = createApi({
   }),
   endpoints: (builder) => ({
     getArticles: builder.query({
-      query: () => '/articles',
+      query: (page) => `articles?limit=5&offset=${page}`,
       providesTags: ['Articles'],
     }),
 		getAnArticle: builder.query({

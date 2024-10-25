@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import defaultAvatar from '../../assets/images/defaultAvatar.svg'
 import { useGetAnArticleQuery } from '../../features/api/blogApi'
 import { formatDate } from '../../utils/formatDate'
+import handleImageError from '../../utils/handleImageError'
 import styles from './ArticlePage.module.scss'
 
 const ArticlePage = () => {
@@ -42,7 +43,7 @@ const ArticlePage = () => {
             <span className={styles.username}> {author?.username || 'Unknown Author'}</span>
             <span className={styles['post-date']}>{formatDate(updatedAt)} </span>
           </div>
-          <img className={styles.avatar} src={author.image || defaultAvatar} alt="avatar" />
+          <img className={styles.avatar} src={author.image || defaultAvatar} alt="avatar" onError={handleImageError} />
         </div>
       </div>
       <p className={styles.content}>{body}</p>
