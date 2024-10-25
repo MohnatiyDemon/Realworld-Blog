@@ -11,6 +11,9 @@ $hover-color: #4096ff;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media screen and (max-width: 460px) {
+    padding: 5px;
+  }
 }
 
 .Home {
