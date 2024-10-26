@@ -1,14 +1,25 @@
 import { useNavigate } from 'react-router-dom'
 import defaultAvatar from '../../assets/images/defaultAvatar.svg'
+import { useFavoriteAnArticleMutation, useUnfavoriteAnArticleMutation } from '../../features/api/blogApi'
 import { formatDate } from '../../utils/formatDate'
 import handleImageError from '../../utils/handleImageError'
 import styles from './Article.module.scss'
 
-const Article = ({ slug, title, description, tagList, updatedAt, image, favoritesCount, author }) => {
+const Article = ({ slug, title, description, tagList, updatedAt, image, favoritesCount, author, favorited }) => {
   const navigate = useNavigate()
+  const [favoriteAnArticle] = useFavoriteAnArticleMutation()
+  const [unfavoriteAnArticle] = useUnfavoriteAnArticleMutation()
 
   const handleArticleOpenClick = () => {
     navigate(`/article/${slug}`)
+  }
+
+  const handleFavoriteClick = () => {
+    if (!favorited) {
+      favoriteAnArticle(slug)
+    } else {
+      unfavoriteAnArticle(slug)
+    }
   }
 
   return (
@@ -18,7 +29,13 @@ const Article = ({ slug, title, description, tagList, updatedAt, image, favorite
           <h2 className={styles.title} onClick={handleArticleOpenClick}>
             {title}
           </h2>
-          <span className={styles.likes}>{favoritesCount}</span>
+          <label className={styles.favorite}>
+            <button
+              className={`${styles.favorite__button} ${favorited ? styles['favorite__button--active'] : ''}`}
+              onClick={handleFavoriteClick}
+            ></button>
+            <span>{favoritesCount}</span>
+          </label>
         </div>
         <div>
           {tagList &&

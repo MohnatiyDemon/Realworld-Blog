@@ -29,6 +29,7 @@ const Articles = () => {
           favoritesCount={item.favoritesCount}
           author={item.author}
           slug={item.slug}
+          favorited={item.favorited}
         />
       ))}
       <Pagination

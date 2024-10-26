@@ -7,6 +7,13 @@ export const blogApi = createApi({
   reducerPath: 'blogApi',
   baseQuery: fetchBaseQuery({
     baseUrl: URL,
+    prepareHeaders: (headers, { getState } ) => {
+      const token = getState().user?.user?.token
+      if(token) {
+        headers.set('authorization', `Bearer ${token}`)
+      }
+      return headers
+    }
   }),
   endpoints: (builder) => ({
     getArticles: builder.query({
@@ -41,8 +48,22 @@ export const blogApi = createApi({
           }
         }
       })
+    }),
+    favoriteAnArticle: builder.mutation({
+      query: (slug) => ({
+        url: `/articles/${slug}/favorite`,
+        method: 'POST',
+      }),
+      invalidatesTags: ['Articles', 'Article'],
+    }),
+    unfavoriteAnArticle: builder.mutation({
+      query: (slug) => ({
+        url: `/articles/${slug}/favorite`,
+        method: 'DELETE'
+      }),
+      invalidatesTags: ['Articles', 'Article'],
     })
   }),
 })
 
-export const {useGetArticlesQuery, useGetAnArticleQuery, useRegisterANewUserMutation, useExistingUserLoginMutation} = blogApi
+export const {useGetArticlesQuery, useGetAnArticleQuery, useRegisterANewUserMutation, useExistingUserLoginMutation, useFavoriteAnArticleMutation, useUnfavoriteAnArticleMutation} = blogApi

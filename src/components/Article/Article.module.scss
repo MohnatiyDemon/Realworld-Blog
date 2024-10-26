@@ -20,17 +20,25 @@ $info-color: #1890ff;
   cursor: pointer;
 }
 
-.likes {
+.favorite {
   font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.likes::before {
-  content: url('../../assets/icons/like.svg');
-  display: inline-block;
+.favorite__button {
+  background-image: url('../../assets/icons/like-disabled.svg');
   width: 16px;
   height: 16px;
-  margin-right: 5px;
-  transform: translate(0, 3px);
+  &:hover {
+    background-image: url('../../assets/icons/like-enabled.svg');
+    height: 18px;
+  }
+  &--active {
+    background-image: url('../../assets/icons/like-enabled.svg');
+    height: 18px;
+  }
 }
 
 .tag {
