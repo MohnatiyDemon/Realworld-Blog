@@ -1,0 +1,47 @@
+$background-color-base: #ffffff;
+$heading-color: #000000d9;
+$success-color: #52c41a;
+$hover-color: #4096ff;
+
+.UserHeader {
+  display: flex;
+  gap: 10px;
+  @media screen and (max-width: 460px) {
+    flex-direction: column;
+    gap: 5;
+  }
+}
+
+.CreateArticle {
+  color: $success-color;
+  border: 1px solid $success-color;
+  border-radius: 5px;
+  &:hover {
+    color: $hover-color;
+    border-color: $hover-color;
+  }
+}
+
+.User {
+  &:hover {
+    color: $hover-color;
+    border-color: $hover-color;
+  }
+}
+
+.LogOut {
+  border: 1px solid $heading-color;
+  border-radius: 5px;
+  &:hover {
+    color: $hover-color;
+    border-color: $hover-color;
+  }
+}
+
+.button {
+  padding: 10px 20px;
+  transition: all 0.1s ease;
+  @media screen and (max-width: 460px) {
+    padding: 5px 20px;
+  }
+}

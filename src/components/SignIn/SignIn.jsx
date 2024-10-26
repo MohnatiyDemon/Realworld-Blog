@@ -1,17 +1,36 @@
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { useExistingUserLoginMutation } from '../../features/api/blogApi'
+import { signInUser } from '../../stores/userSlice'
 import styles from './SignIn.module.scss'
 
 const SignIn = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
 
-  const onSubmit = (data) => {
-    console.log(data) // Вы можете отправить данные на сервер здесь
+  const [loginUser, { data, isLoading, isError, error, isSuccess }] = useExistingUserLoginMutation()
+
+  const onSubmit = (user) => {
+    loginUser({
+      email: user.email,
+      password: user.password,
+    })
   }
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(signInUser(data.user))
+      localStorage.setItem('user-data', JSON.stringify(data.user))
+      navigate('/successful-login')
+    }
+  }, [isSuccess, navigate])
 
   return (
     <form className={styles.SignIn} onSubmit={handleSubmit(onSubmit)}>

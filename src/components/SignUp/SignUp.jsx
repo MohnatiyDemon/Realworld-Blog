@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { useRegisterANewUserMutation } from '../../features/api/blogApi'
@@ -32,10 +32,11 @@ const SignUp = () => {
       password: data.password,
     })
   }
-
-  if (isSuccess) {
-    navigate('/successfull-registration')
-  }
+  useEffect(() => {
+    if (isSuccess) {
+      navigate('/successful-registration')
+    }
+  }, [isSuccess, navigate])
 
   return (
     <form className={styles.SignUp} onSubmit={handleSubmit(onSubmit)}>
