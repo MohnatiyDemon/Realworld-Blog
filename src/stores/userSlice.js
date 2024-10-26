@@ -4,6 +4,8 @@ const initialState = {
 	user: null,
 }
 
+const userData = localStorage.getItem('user-data')
+
 const userSlice = createSlice({
 	name: 'user',
 	initialState,
@@ -13,9 +15,11 @@ const userSlice = createSlice({
 		},
 		logOutUser(state) {
 			state.user = null;
+			if(userData) {
+				localStorage.removeItem('user-data')
+			}
 		},
 		checkUserAuth(state) {
-			const userData = localStorage.getItem('user-data')
 			if(userData) {
 				state.user = JSON.parse(userData)
 			}
