@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useRegisterANewUserMutation } from '../../features/api/blogApi'
 import styles from './SignUp.module.scss'
 
 const SignUp = () => {
+  const navigate = useNavigate()
   const {
     handleSubmit,
     register,
@@ -21,7 +23,19 @@ const SignUp = () => {
       : styles['form-custom-checkbox']
   }
 
-  const onSubmit = (data) => console.log(data)
+  const [registerUser, { isError, isLoading, error, isSuccess }] = useRegisterANewUserMutation()
+
+  const onSubmit = (data) => {
+    registerUser({
+      username: data.username,
+      email: data.email,
+      password: data.password,
+    })
+  }
+
+  if (isSuccess) {
+    navigate('/successfull-registration')
+  }
 
   return (
     <form className={styles.SignUp} onSubmit={handleSubmit(onSubmit)}>

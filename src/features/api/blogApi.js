@@ -16,8 +16,33 @@ export const blogApi = createApi({
 		getAnArticle: builder.query({
 			query: (slug) => `/articles/${slug}`,
 			providesTags: ['Article']
-		})
+		}),
+    registerANewUser: builder.mutation({
+      query: ({username, email, password}) => ({
+        url: '/users ',
+        method: 'POST',
+        body: {
+          user: {
+            username: username,
+            email: email,
+            password: password,
+          }
+        }
+      }),
+    }),
+    ExistingUserLogin: builder.mutation({
+      query: ({email, password}) => ({
+        url: '/users/login',
+        method: 'POST',
+        body: {
+          user: {
+            email: email,
+            password: password,
+          }
+        }
+      })
+    })
   }),
 })
 
-export const {useGetArticlesQuery, useGetAnArticleQuery} = blogApi
+export const {useGetArticlesQuery, useGetAnArticleQuery, useRegisterANewUserMutation, useExistingUserLoginMutation} = blogApi

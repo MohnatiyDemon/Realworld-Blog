@@ -5,6 +5,7 @@ import Articles from './components/Articles/Articles'
 import Header from './components/Header/Header'
 import SignIn from './components/SignIn/SignIn'
 import SignUp from './components/SignUp/SignUp'
+import SuccessfulRegistration from './components/SuccessfulRegistration/SuccessfulRegistration'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/article/:slug" element={<ArticlePage />} />
+        <Route path="/successfull-registration" element={<SuccessfulRegistration />} />
       </Routes>
     </div>
   )

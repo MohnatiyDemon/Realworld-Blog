@@ -12,10 +12,12 @@ const Article = ({ slug, title, description, tagList, updatedAt, image, favorite
   }
 
   return (
-    <article className={styles.Article} onClick={handleArticleOpenClick}>
+    <article className={styles.Article}>
       <div className={styles['flex-body']}>
         <div className={styles['flex-title']}>
-          <h2 className={styles.title}>{title}</h2>
+          <h2 className={styles.title} onClick={handleArticleOpenClick}>
+            {title}
+          </h2>
           <span className={styles.likes}>{favoritesCount}</span>
         </div>
         <div>
