@@ -3,7 +3,11 @@ import { Spin } from 'antd'
 import Markdown from 'react-markdown'
 import { useParams } from 'react-router-dom'
 import defaultAvatar from '../../assets/images/defaultAvatar.svg'
-import { useGetAnArticleQuery } from '../../features/api/blogApi'
+import {
+  useFavoriteAnArticleMutation,
+  useGetAnArticleQuery,
+  useUnfavoriteAnArticleMutation,
+} from '../../features/api/blogApi'
 import { formatDate } from '../../utils/formatDate'
 import handleImageError from '../../utils/handleImageError'
 import styles from './ArticlePage.module.scss'
@@ -11,6 +15,8 @@ import styles from './ArticlePage.module.scss'
 const ArticlePage = () => {
   const { slug } = useParams()
   const { data, isLoading, error } = useGetAnArticleQuery(slug)
+  const [favoriteAnArticle] = useFavoriteAnArticleMutation()
+  const [unfavoriteAnArticle] = useUnfavoriteAnArticleMutation()
 
   if (isLoading) {
     return <Spin className={styles.Spin} indicator={<LoadingOutlined style={{ fontSize: 100 }} spin />} />
@@ -20,7 +26,15 @@ const ArticlePage = () => {
     return <div>{error.message}</div>
   }
 
-  const { title, description, body, tagList, updatedAt, author, favoritesCount } = data.article
+  const { title, description, body, tagList, updatedAt, author, favoritesCount, favorited } = data.article
+
+  const handleFavoriteClick = () => {
+    if (!favorited) {
+      favoriteAnArticle(slug)
+    } else {
+      unfavoriteAnArticle(slug)
+    }
+  }
 
   return (
     <section className={styles.ArticlePage}>
@@ -28,7 +42,13 @@ const ArticlePage = () => {
         <div className={styles['flex-body']}>
           <div className={styles['flex-title']}>
             <h2 className={styles.title}>{title}</h2>
-            <span className={styles.likes}>{favoritesCount}</span>
+            <label className={styles.favorite}>
+              <button
+                className={`${styles.favorite__button} ${favorited ? styles['favorite__button--active'] : ''}`}
+                onClick={handleFavoriteClick}
+              ></button>
+              <span>{favoritesCount}</span>
+            </label>
           </div>
           <div>
             {tagList.map((tag, index) => (
