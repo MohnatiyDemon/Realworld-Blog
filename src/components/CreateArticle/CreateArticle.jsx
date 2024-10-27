@@ -15,11 +15,10 @@ const CreateArticle = () => {
     createArticle({
       title: data.title,
       description: data.description,
-      text: data.text,
-      tag: data.tag,
+      body: data.body,
+      tags: data.tag,
     })
   }
-  console.log(onSubmit)
 
   return (
     <form className={styles.CreateArticle} onSubmit={handleSubmit(onSubmit)}>
@@ -54,11 +53,20 @@ const CreateArticle = () => {
           className={`${styles['form-input']} ${styles['form-input--textarea']}`}
           type="text"
           placeholder="Text"
-          {...register('text', {
+          {...register('body', {
             required: 'Text is required',
           })}
         />
-        {errors.text && <p className={styles['error-message']}>{errors.text.message}</p>}
+        {errors.body && <p className={styles['error-message']}>{errors.body.message}</p>}
+      </label>
+      <label className={styles['form-label']}>
+        <span>Tags</span>
+        <input
+          className={`${styles['form-input']} ${styles['form-input--tag']} `}
+          type="text"
+          placeholder="Tag"
+          {...register('tag')}
+        />
       </label>
       <label className={styles['form-label']}>
         <span>Tags</span>

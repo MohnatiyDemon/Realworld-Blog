@@ -33,7 +33,7 @@ export const blogApi = createApi({
             title: title,
             description: description,
             body: body,
-            tags: [tags],
+            tags: tags,
           }
         }
       }),
