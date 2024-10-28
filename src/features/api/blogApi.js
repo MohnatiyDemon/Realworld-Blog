@@ -25,7 +25,7 @@ export const blogApi = createApi({
 			providesTags: ['Article']
 		}),
     createAnArticle: builder.mutation({
-      query: ({title, description, body, tags}) => ({
+      query: ({title, description, body, tagList}) => ({
         url: '/articles',
         method: 'POST',
         body: {
@@ -33,7 +33,7 @@ export const blogApi = createApi({
             title: title,
             description: description,
             body: body,
-            tags: tags,
+            tagList: tagList,
           }
         }
       }),

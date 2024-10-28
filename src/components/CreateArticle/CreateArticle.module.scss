@@ -2,6 +2,7 @@ $background-color-base: #ffffff;
 $primary-text-color: #262626;
 $submit-button-color: #1890ff;
 $highlight-color: #f5222d;
+$success-color: #52c41a;
 
 .CreateArticle {
   margin: 60px auto auto auto;
@@ -75,4 +76,46 @@ $highlight-color: #f5222d;
 
 .form-input--tag {
   max-width: 319px;
+}
+
+.add-tag-button {
+  color: $submit-button-color;
+  border: 1px solid $submit-button-color;
+  &:hover {
+    color: $success-color;
+    border-color: $success-color;
+  }
+}
+
+.remove-tag-button {
+  color: $highlight-color;
+  border: 1px solid $highlight-color;
+  &:hover {
+    color: $success-color;
+    border-color: $success-color;
+  }
+}
+
+.button {
+  font-size: 16px;
+  border-radius: 4px;
+  padding: 10px 20px;
+  transition: all 0.1s ease;
+  max-width: 136px;
+  width: 100%;
+}
+
+.form-label--tags {
+  display: flex;
+  flex-direction: row;
+  gap: 18px;
+}
+.tag-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.flexxx {
+  display: flex;
+  align-items: end;
 }

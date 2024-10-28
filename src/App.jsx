@@ -9,6 +9,7 @@ import Header from './components/Header/Header'
 import SignIn from './components/SignIn/SignIn'
 import SignUp from './components/SignUp/SignUp'
 import SuccessfulLogin from './components/SuccessfulLogin/SuccessfulLogin'
+import SuccessfulMessage from './components/SuccessfulMessage/SuccessfulMessage'
 import SuccessfulRegistration from './components/SuccessfulRegistration/SuccessfulRegistration'
 import { checkUserAuth } from './stores/userSlice'
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/new-article" element={<CreateArticle />} />
         <Route path="/successful-registration" element={<SuccessfulRegistration />} />
         <Route path="/successful-login" element={<SuccessfulLogin />} />
+        <Route path="/successful-message" element={<SuccessfulMessage />} />
       </Routes>
     </div>
   )
