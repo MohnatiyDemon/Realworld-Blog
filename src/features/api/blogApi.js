@@ -39,6 +39,12 @@ export const blogApi = createApi({
       }),
       invalidatesTags: ['Articles'],
     }),
+    deleteAnArticle: builder.mutation({
+      query: (slug) => ({
+        url: `/articles/${slug}`,
+        method: 'DELETE'
+      })
+    }),
     registerANewUser: builder.mutation({
       query: ({username, email, password}) => ({
         url: '/users ',
@@ -52,7 +58,7 @@ export const blogApi = createApi({
         }
       }),
     }),
-    ExistingUserLogin: builder.mutation({
+    existingUserLogin: builder.mutation({
       query: ({email, password}) => ({
         url: '/users/login',
         method: 'POST',
@@ -63,6 +69,21 @@ export const blogApi = createApi({
           }
         }
       }),
+    }),
+    updateCurrentUser: builder.mutation({
+      query:({email, username, password, image}) => ({
+        url: '/user',
+        method: 'PUT',
+        body: {
+          user: {
+            email: email,
+            username: username,
+            password: password,
+            image: image,}
+          
+        }
+      }),
+      invalidatesTags: ['User'],
     }),
     favoriteAnArticle: builder.mutation({
       query: (slug) => ({
@@ -78,8 +99,7 @@ export const blogApi = createApi({
       }),
       invalidatesTags: ['Articles', 'Article'],
     }),
-
   }),
 })
 
-export const {useGetArticlesQuery, useGetAnArticleQuery, useRegisterANewUserMutation, useExistingUserLoginMutation, useFavoriteAnArticleMutation, useUnfavoriteAnArticleMutation, useCreateAnArticleMutation} = blogApi
+export const {useGetArticlesQuery, useGetAnArticleQuery, useRegisterANewUserMutation, useExistingUserLoginMutation, useFavoriteAnArticleMutation, useUnfavoriteAnArticleMutation, useCreateAnArticleMutation, useUpdateCurrentUserMutation, useDeleteAnArticleMutation} = blogApi

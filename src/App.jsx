@@ -11,6 +11,7 @@ import SignUp from './components/SignUp/SignUp'
 import SuccessfulLogin from './components/SuccessfulLogin/SuccessfulLogin'
 import SuccessfulMessage from './components/SuccessfulMessage/SuccessfulMessage'
 import SuccessfulRegistration from './components/SuccessfulRegistration/SuccessfulRegistration'
+import UserProfile from './components/UserProfile/UserProfile'
 import { checkUserAuth } from './stores/userSlice'
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/article/:slug" element={<ArticlePage />} />
         <Route path="/new-article" element={<CreateArticle />} />
+        <Route path="/profile" element={<UserProfile />} />
         <Route path="/successful-registration" element={<SuccessfulRegistration />} />
         <Route path="/successful-login" element={<SuccessfulLogin />} />
         <Route path="/successful-message" element={<SuccessfulMessage />} />

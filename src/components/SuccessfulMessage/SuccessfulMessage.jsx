@@ -1,17 +1,26 @@
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import styles from './SuccessfulMessage.module.scss'
 
 const SuccessfulMessage = () => {
   const navigate = useNavigate()
+  const location = useLocation()
+  const from = location.state?.from
+  const articleSlug = location.state?.articleSlug
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate('/')
+      if (from === 'profile') {
+        navigate('/sign-in')
+      } else if (from === 'new-article' && articleSlug) {
+        navigate(`/article/${articleSlug}`)
+      } else {
+        navigate('/')
+      }
     }, 1000)
 
     return () => clearTimeout(timer)
-  }, [navigate])
+  }, [navigate, from])
 
   return (
     <article className={styles.SuccessfulMessage}>

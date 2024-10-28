@@ -26,7 +26,9 @@ const CreateArticle = () => {
     setTags(newTags)
   }
 
-  const [createArticle, { isError, isSuccess, isLoading, error }] = useCreateAnArticleMutation()
+  const [createArticle, { data, isError, isSuccess, isLoading, error }] = useCreateAnArticleMutation()
+
+  const newArticleSlug = data?.article?.slug
 
   const onSubmit = (data) => {
     createArticle({
@@ -39,7 +41,7 @@ const CreateArticle = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate('/successful-message')
+      navigate('/successful-message', { state: { from: 'new-article', articleSlug: newArticleSlug } })
     }
   }, [isSuccess, navigate])
 
