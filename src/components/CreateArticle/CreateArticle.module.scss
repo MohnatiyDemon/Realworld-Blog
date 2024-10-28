@@ -76,6 +76,8 @@ $success-color: #52c41a;
 
 .form-input--tag {
   max-width: 319px;
+  min-width: 136px;
+  width: 100%;
 }
 
 .add-tag-button {
@@ -114,8 +116,4 @@ $success-color: #52c41a;
   display: flex;
   flex-direction: column;
   gap: 5px;
-}
-.flexxx {
-  display: flex;
-  align-items: end;
 }
