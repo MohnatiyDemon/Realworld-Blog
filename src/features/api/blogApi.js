@@ -39,6 +39,20 @@ export const blogApi = createApi({
       }),
       invalidatesTags: ['Articles'],
     }),
+    updateAnArticle: builder.mutation({
+      query: (slug, {title, description, body, tagList}) => ({
+        url: `/articles/${slug}`,
+        body: {
+          article: {
+            title: title,
+            description: description,
+            body: body,
+            tagList: tagList,
+          }
+        }
+      }),
+      invalidatesTags: ['Article'],
+    }),
     deleteAnArticle: builder.mutation({
       query: (slug) => ({
         url: `/articles/${slug}`,
