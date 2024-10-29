@@ -54,6 +54,10 @@ $highlight-color: #f5222d;
   color: #ffffff;
   height: 40px;
   font-size: 16px;
+  transition: box-shadow 0.3s ease;
+  &:hover {
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+  }
 }
 .form-span {
   font-size: 12px;

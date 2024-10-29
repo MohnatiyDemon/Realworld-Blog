@@ -18,6 +18,8 @@ const SignIn = () => {
 
   const [loginUser, { data, isLoading, isError, error, isSuccess }] = useExistingUserLoginMutation()
 
+  const isAuthError = error?.status === 422
+
   const onSubmit = (user) => {
     loginUser({
       email: user.email,
@@ -49,6 +51,7 @@ const SignIn = () => {
           })}
         />
         {errors.email && <p className={styles['error-message']}>{errors.email.message}</p>}
+        {isAuthError && <p className={styles['error-message']}>Incorrect username or password.</p>}
       </label>
       <label className={styles['form-label']}>
         <span>Password</span>
@@ -61,6 +64,7 @@ const SignIn = () => {
           })}
         />
         {errors.password && <p className={styles['error-message']}>{errors.password.message}</p>}
+        {isAuthError && <p className={styles['error-message']}>Incorrect username or password.</p>}
       </label>
       <input className={styles['form-submit']} type="submit" value="Login" />
       <span className={styles['form-span']}>

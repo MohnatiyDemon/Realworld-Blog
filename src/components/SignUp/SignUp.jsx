@@ -13,6 +13,7 @@ const SignUp = () => {
     formState: { errors },
   } = useForm()
   const password = watch('password')
+  const isAuthError = error?.status === 422
   const [checkboxStatus, setCheckboxStatus] = useState(false)
   const handleCheckboxChange = () => {
     setCheckboxStatus(!checkboxStatus)
