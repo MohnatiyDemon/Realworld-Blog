@@ -28,7 +28,7 @@ const SignIn = () => {
     if (isSuccess) {
       dispatch(signInUser(data.user))
       localStorage.setItem('user-data', JSON.stringify(data.user))
-      navigate('/successful-login')
+      navigate('/successful-message', { state: { from: 'sign-in' } })
     }
   }, [isSuccess, navigate])
 

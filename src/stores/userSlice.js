@@ -1,9 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const userData = localStorage.getItem('user-data')
-
 const initialState = {
-	user: userData ? JSON.parse(userData) : null,
+	user: localStorage.getItem('user-data') ? JSON.parse(localStorage.getItem('user-data')) : null,
 }
 
 const userSlice = createSlice({
@@ -19,9 +17,7 @@ const userSlice = createSlice({
 			localStorage.removeItem('user-data')
 		},
 		checkUserAuth(state) {
-			if (!state.user && userData) {
-				state.user = JSON.parse(userData)
-			}
+				state.user = {...JSON.parse(localStorage.getItem('user-data'))}
 		},
 	},
 })

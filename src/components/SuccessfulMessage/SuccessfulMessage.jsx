@@ -8,23 +8,50 @@ const SuccessfulMessage = () => {
   const from = location.state?.from
   const articleSlug = location.state?.articleSlug
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (from === 'profile') {
-        navigate('/sign-in')
-      } else if (from === 'new-article' && articleSlug) {
-        navigate(`/article/${articleSlug}`)
-      } else {
-        navigate('/')
-      }
-    }, 1000)
+  const messages = {
+    profile: {
+      title: 'Profile Updated Successfully!',
+      text: 'Redirecting to the login form...',
+      redirectPath: '/sign-in',
+    },
+    'sign-up': {
+      title: 'Registration Successful!',
+      text: 'Redirecting to the login form...',
+      redirectPath: '/sign-in',
+    },
+    'sign-in': {
+      title: 'Welcome Back!',
+      text: 'Redirecting you to the homepage shortly...',
+      redirectPath: '/',
+    },
+    'new-article': {
+      title: 'Article Published Successfully!',
+      text: 'Redirecting you to your article...',
+      redirectPath: `/article/${articleSlug}`,
+    },
+    'article-delete': {
+      title: 'Article Deleted Successfully!',
+      text: 'Redirecting you to the homepage shortly...',
+      redirectPath: `/`,
+    },
+    default: {
+      title: 'Success',
+      text: '',
+      redirectPath: '/',
+    },
+  }
 
+  const { title, text, redirectPath } = messages[from] || messages.default
+
+  useEffect(() => {
+    const timer = setTimeout(() => navigate(redirectPath), 2000)
     return () => clearTimeout(timer)
-  }, [navigate, from])
+  }, [navigate, from, redirectPath])
 
   return (
     <article className={styles.SuccessfulMessage}>
-      <h2 className={styles.title}>Successful!</h2>
+      <h2 className={styles.title}>{title}</h2>
+      {text && <p className={styles.paragraph}>{text}</p>}
     </article>
   )
 }

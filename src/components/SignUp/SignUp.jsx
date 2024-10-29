@@ -34,7 +34,7 @@ const SignUp = () => {
   }
   useEffect(() => {
     if (isSuccess) {
-      navigate('/successful-registration')
+      navigate('/successful-message', { state: { from: 'sign-up' } })
     }
   }, [isSuccess, navigate])
 

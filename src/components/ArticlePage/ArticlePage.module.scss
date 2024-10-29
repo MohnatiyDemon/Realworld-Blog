@@ -1,4 +1,8 @@
 $info-color: #1890ff;
+$background-color-base: #ffffff;
+$primary-text-color: #262626;
+$highlight-color: #f5222d;
+$success-color: #52c41a;
 
 .ArticlePage {
   margin: 0 auto;
@@ -125,4 +129,36 @@ $info-color: #1890ff;
     order: -1;
     margin-bottom: 20px;
   }
+}
+
+.edit-button {
+  color: $success-color;
+  border: 1px solid $success-color;
+  &:hover {
+    color: $info-color;
+    border-color: $info-color;
+  }
+}
+
+.remove-button {
+  color: $highlight-color;
+  border: 1px solid $highlight-color;
+  &:hover {
+    color: $info-color;
+    border-color: $info-color;
+  }
+}
+
+.button {
+  font-size: 16px;
+  border-radius: 4px;
+  padding: 10px 20px;
+  transition: all 0.1s ease;
+  max-width: 136px;
+  width: 100%;
+}
+
+.flex-button {
+  gap: 12px;
+  margin-top: 30px;
 }
