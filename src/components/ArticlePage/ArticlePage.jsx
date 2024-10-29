@@ -95,7 +95,12 @@ const ArticlePage = () => {
               <button className={`${styles['remove-button']} ${styles.button}`} onClick={() => deleteAnArticle(slug)}>
                 Delete
               </button>
-              <button className={`${styles['edit-button']} ${styles.button}`}>Edit</button>
+              <button
+                className={`${styles['edit-button']} ${styles.button}`}
+                onClick={() => navigate(`/article/${slug}/edit`)}
+              >
+                Edit
+              </button>
             </div>
           )}
         </div>

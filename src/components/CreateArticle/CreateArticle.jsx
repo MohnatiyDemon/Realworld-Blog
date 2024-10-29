@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
-import { useCreateAnArticleMutation } from '../../features/api/blogApi'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import {
+  useCreateAnArticleMutation,
+  useGetAnArticleQuery,
+  useUpdateAnArticleMutation,
+} from '../../features/api/blogApi'
 import styles from './CreateArticle.module.scss'
 
 const CreateArticle = () => {
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm()
   const [tags, setTags] = useState([''])
   const navigate = useNavigate()
+  const location = useLocation()
+  const { slug } = useParams()
+  const isEditing = location.pathname.includes('/edit')
 
   const addTagField = () => {
     setTags([...tags, ''])
@@ -26,28 +28,63 @@ const CreateArticle = () => {
     setTags(newTags)
   }
 
-  const [createArticle, { data, isError, isSuccess, isLoading, error }] = useCreateAnArticleMutation()
+  const [createArticle, { data, isError, isSuccess: isCreateSuccess, isLoading, error }] = useCreateAnArticleMutation()
+  const [updateAnArticle, { isSuccess: isUpdateSuccess }] = useUpdateAnArticleMutation()
+  const { data: articleData } = useGetAnArticleQuery(slug)
+
+  const initialData =
+    isEditing && articleData
+      ? {
+          title: articleData.article.title,
+          description: articleData.article.description,
+          body: articleData.article.body,
+          tagList: articleData.article.tagList || [],
+        }
+      : {
+          title: '',
+          description: '',
+          body: '',
+          tagList: [],
+        }
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    reset,
+  } = useForm({ defaultValues: initialData })
 
   const newArticleSlug = data?.article?.slug
 
   const onSubmit = (data) => {
-    createArticle({
-      title: data.title,
-      description: data.description,
-      body: data.body,
-      tagList: tags,
-    })
+    if (isEditing) {
+      updateAnArticle({ slug, ...data, tagList: tags })
+    }
+    if (!isEditing) {
+      createArticle({
+        title: data.title,
+        description: data.description,
+        body: data.body,
+        tagList: tags,
+      })
+    }
   }
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isEditing && articleData) {
+      setTags(articleData.article.tagList || [''])
+    }
+  }, [isEditing, articleData])
+
+  useEffect(() => {
+    if (isCreateSuccess || isUpdateSuccess) {
       navigate('/successful-message', { state: { from: 'new-article', articleSlug: newArticleSlug } })
     }
-  }, [isSuccess, navigate])
+  }, [isCreateSuccess, isUpdateSuccess, navigate])
 
   return (
     <form className={styles.CreateArticle} onSubmit={handleSubmit(onSubmit)}>
-      <h2 className={styles['form-title']}>Create new article</h2>
+      <h2 className={styles['form-title']}>{isEditing ? 'Edit Article' : 'Create New Article'}</h2>
 
       <label className={styles['form-label']}>
         <span>Title</span>

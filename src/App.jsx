@@ -6,6 +6,7 @@ import ArticlePage from './components/ArticlePage/ArticlePage'
 import Articles from './components/Articles/Articles'
 import CreateArticle from './components/CreateArticle/CreateArticle'
 import Header from './components/Header/Header'
+import PrivateRoute from './components/PrivateRoute/PrivateRoute'
 import SignIn from './components/SignIn/SignIn'
 import SignUp from './components/SignUp/SignUp'
 import SuccessfulMessage from './components/SuccessfulMessage/SuccessfulMessage'
@@ -27,9 +28,24 @@ function App() {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/article/:slug" element={<ArticlePage />} />
-        <Route path="/new-article" element={<CreateArticle />} />
+        <Route
+          path="/new-article"
+          element={
+            <PrivateRoute>
+              <CreateArticle />
+            </PrivateRoute>
+          }
+        />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/successful-message" element={<SuccessfulMessage />} />
+        <Route
+          path="/article/:slug/edit"
+          element={
+            <PrivateRoute>
+              <CreateArticle />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </div>
   )

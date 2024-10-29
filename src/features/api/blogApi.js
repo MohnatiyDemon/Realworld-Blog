@@ -116,4 +116,4 @@ export const blogApi = createApi({
   }),
 })
 
-export const {useGetArticlesQuery, useGetAnArticleQuery, useRegisterANewUserMutation, useExistingUserLoginMutation, useFavoriteAnArticleMutation, useUnfavoriteAnArticleMutation, useCreateAnArticleMutation, useUpdateCurrentUserMutation, useDeleteAnArticleMutation} = blogApi
+export const {useGetArticlesQuery, useGetAnArticleQuery, useRegisterANewUserMutation, useExistingUserLoginMutation, useFavoriteAnArticleMutation, useUnfavoriteAnArticleMutation, useCreateAnArticleMutation, useUpdateCurrentUserMutation, useDeleteAnArticleMutation, useUpdateAnArticleMutation} = blogApi
