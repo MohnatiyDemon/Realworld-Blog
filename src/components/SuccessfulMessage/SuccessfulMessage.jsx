@@ -29,6 +29,11 @@ const SuccessfulMessage = () => {
       text: 'Redirecting you to your article...',
       redirectPath: `/article/${articleSlug}`,
     },
+    'update-article': {
+      title: 'Article Updated Successfully!',
+      text: 'Redirecting you to your article...',
+      redirectPath: `/article/${articleSlug}`,
+    },
     'article-delete': {
       title: 'Article Deleted Successfully!',
       text: 'Redirecting you to the homepage shortly...',

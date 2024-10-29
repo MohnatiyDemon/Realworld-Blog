@@ -57,14 +57,15 @@ const CreateArticle = () => {
   const newArticleSlug = data?.article?.slug
 
   const onSubmit = (data) => {
+    const { title, description, body } = data
     if (isEditing) {
-      updateAnArticle({ slug, ...data, tagList: tags })
+      updateAnArticle({ slug, title, description, body, tags })
     }
     if (!isEditing) {
       createArticle({
-        title: data.title,
-        description: data.description,
-        body: data.body,
+        title,
+        description,
+        body,
         tagList: tags,
       })
     }
@@ -77,10 +78,13 @@ const CreateArticle = () => {
   }, [isEditing, articleData])
 
   useEffect(() => {
-    if (isCreateSuccess || isUpdateSuccess) {
+    if (isCreateSuccess) {
       navigate('/successful-message', { state: { from: 'new-article', articleSlug: newArticleSlug } })
     }
-  }, [isCreateSuccess, isUpdateSuccess, navigate])
+    if (isUpdateSuccess) {
+      navigate('/successful-message', { state: { from: 'update-article', articleSlug: slug } })
+    }
+  }, [isCreateSuccess, isUpdateSuccess, slug, navigate])
 
   return (
     <form className={styles.CreateArticle} onSubmit={handleSubmit(onSubmit)}>
