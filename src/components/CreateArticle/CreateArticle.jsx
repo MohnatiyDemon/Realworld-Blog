@@ -59,7 +59,7 @@ const CreateArticle = () => {
   const onSubmit = (data) => {
     const { title, description, body } = data
     if (isEditing) {
-      updateAnArticle({ slug, title, description, body, tags })
+      updateAnArticle({ slug, title, description, body, tagList: tags })
     }
     if (!isEditing) {
       createArticle({
