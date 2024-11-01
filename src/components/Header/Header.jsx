@@ -5,13 +5,13 @@ import UserHeader from '../UserHeader/UserHeader'
 import styles from './Header.module.scss'
 
 const Header = () => {
-  const { user } = useSelector((state) => state.user)
+  const token = useSelector((state) => state.user?.user?.token)
   return (
     <header className={styles.Header}>
       <Link to="/">
         <button className={`${styles.Home} ${styles.button}`}>Realworld Blog</button>
       </Link>
-      {user ? (
+      {token ? (
         <UserHeader />
       ) : (
         <div className={styles.flex}>

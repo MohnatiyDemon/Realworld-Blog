@@ -1,5 +1,5 @@
 import { LoadingOutlined } from '@ant-design/icons'
-import { Spin } from 'antd'
+import { Popconfirm, Spin } from 'antd'
 import { useEffect } from 'react'
 import Markdown from 'react-markdown'
 import { useSelector } from 'react-redux'
@@ -13,6 +13,7 @@ import {
 } from '../../features/api/blogApi'
 import { formatDate } from '../../utils/formatDate'
 import handleImageError from '../../utils/handleImageError'
+import openAuthNotification from '../../utils/openAuthNotification'
 import styles from './ArticlePage.module.scss'
 
 const ArticlePage = () => {
@@ -20,14 +21,17 @@ const ArticlePage = () => {
   const { data, isLoading, error } = useGetAnArticleQuery(slug)
   const [favoriteAnArticle] = useFavoriteAnArticleMutation()
   const [unfavoriteAnArticle] = useUnfavoriteAnArticleMutation()
-  const [deleteAnArticle, { isSuccess: isSuccessDelete }] = useDeleteAnArticleMutation()
+  const [deleteAnArticle, { isSuccess: isSuccessDelete, isError: isErrorDelete }] = useDeleteAnArticleMutation()
   const navigate = useNavigate()
 
   useEffect(() => {
     if (isSuccessDelete) {
       navigate('/successful-message', { state: { from: 'article-delete' } })
     }
-  }, [isSuccessDelete, navigate])
+    if (isErrorDelete) {
+      navigate('/error-message')
+    }
+  }, [isSuccessDelete, isErrorDelete, navigate])
 
   const currentUser = useSelector((state) => state.user?.user?.username)
   const user = data?.article?.author?.username
@@ -43,6 +47,10 @@ const ArticlePage = () => {
   const { title, description, body, tagList, updatedAt, author, favoritesCount, favorited } = data.article
 
   const handleFavoriteClick = () => {
+    if (!currentUser) {
+      openAuthNotification()
+      return
+    }
     if (!favorited) {
       favoriteAnArticle(slug)
     } else {
@@ -92,9 +100,14 @@ const ArticlePage = () => {
           </div>
           {currentUser === user && (
             <div className={`${styles['flex-container']} ${styles['flex-button']}`}>
-              <button className={`${styles['remove-button']} ${styles.button}`} onClick={() => deleteAnArticle(slug)}>
-                Delete
-              </button>
+              <Popconfirm
+                title="Are you sure you want to delete this article?"
+                onConfirm={() => deleteAnArticle(slug)}
+                okText="Yes"
+                cancelText="No"
+              >
+                <button className={`${styles['remove-button']} ${styles.button}`}>Delete</button>
+              </Popconfirm>
               <button
                 className={`${styles['edit-button']} ${styles.button}`}
                 onClick={() => navigate(`/article/${slug}/edit`)}

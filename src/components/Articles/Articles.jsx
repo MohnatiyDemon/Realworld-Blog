@@ -1,19 +1,22 @@
 import { LoadingOutlined } from '@ant-design/icons'
 import { Pagination, Spin } from 'antd'
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useGetArticlesQuery } from '../../features/api/blogApi'
 import Article from '../Article/Article'
 import styles from './Articles.module.scss'
 
 const Articles = () => {
   const [page, setPage] = useState(1)
-  const { data, isLoading, error } = useGetArticlesQuery((page - 1) * 5)
+  const { data, isLoading, isError } = useGetArticlesQuery((page - 1) * 5)
+  const navigate = useNavigate()
 
   if (isLoading) {
     return <Spin className={styles.Spin} indicator={<LoadingOutlined style={{ fontSize: 100 }} spin />} />
   }
-  if (error) {
-    return <div>{error.message}</div>
+
+  if (isError) {
+    navigate('/error-message')
   }
 
   return (

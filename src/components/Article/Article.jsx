@@ -1,20 +1,27 @@
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import defaultAvatar from '../../assets/images/defaultAvatar.svg'
 import { useFavoriteAnArticleMutation, useUnfavoriteAnArticleMutation } from '../../features/api/blogApi'
 import { formatDate } from '../../utils/formatDate'
 import handleImageError from '../../utils/handleImageError'
+import openAuthNotification from '../../utils/openAuthNotification'
 import styles from './Article.module.scss'
 
 const Article = ({ slug, title, description, tagList, updatedAt, image, favoritesCount, author, favorited }) => {
   const navigate = useNavigate()
   const [favoriteAnArticle] = useFavoriteAnArticleMutation()
   const [unfavoriteAnArticle] = useUnfavoriteAnArticleMutation()
+  const currentUser = useSelector((state) => state.user?.user?.username)
 
   const handleArticleOpenClick = () => {
     navigate(`/article/${slug}`)
   }
 
   const handleFavoriteClick = () => {
+    if (!currentUser) {
+      openAuthNotification()
+      return
+    }
     if (!favorited) {
       favoriteAnArticle(slug)
     } else {

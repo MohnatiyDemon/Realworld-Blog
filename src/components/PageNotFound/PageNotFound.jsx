@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 import pageNotFound from '../../assets/icons/404-error.svg'
-import styles from './ErrorMessage.module.scss'
+import styles from './PageNotFound.module.scss'
 
-const ErrorMessage = () => {
+const PageNotFound = () => {
   return (
-    <article className={styles.ErrorMessage}>
+    <article className={styles.PageNotFound}>
       <img src={pageNotFound} alt="404: page not found" />
       <Link to="/">
         <button className={styles.button}>Home page</button>
@@ -13,4 +13,4 @@ const ErrorMessage = () => {
   )
 }
 
-export default ErrorMessage
+export default PageNotFound

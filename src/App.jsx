@@ -5,9 +5,11 @@ import styles from './App.module.scss'
 import ArticlePage from './components/ArticlePage/ArticlePage'
 import Articles from './components/Articles/Articles'
 import CreateArticle from './components/CreateArticle/CreateArticle'
-import ErrorMessage from './components/ErrorMessage/ErrorMessage'
+import ErrorPage from './components/ErrorPage/ErrorPage'
 import Header from './components/Header/Header'
-import PrivateRoute from './components/PrivateRoute/PrivateRoute'
+import PageNotFound from './components/PageNotFound/PageNotFound'
+import PrivateRoute from './components/Routes/PrivateRoute'
+import PublicRoute from './components/Routes/PublicRoute'
 import SignIn from './components/SignIn/SignIn'
 import SignUp from './components/SignUp/SignUp'
 import SuccessfulMessage from './components/SuccessfulMessage/SuccessfulMessage'
@@ -26,8 +28,10 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Articles />} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/sign-up" element={<SignUp />} />
+        <Route element={<PublicRoute />}>
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
+        </Route>
         <Route path="/article/:slug" element={<ArticlePage />} />
 
         <Route element={<PrivateRoute />}>
@@ -36,7 +40,8 @@ function App() {
           <Route path="/article/:slug/edit" element={<CreateArticle />} />
         </Route>
 
-        <Route path="*" element={<ErrorMessage />} />
+        <Route path="*" element={<PageNotFound />} />
+        <Route path="/error-message" element={<ErrorPage />}></Route>
         <Route path="/successful-message" element={<SuccessfulMessage />} />
       </Routes>
     </div>

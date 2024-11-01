@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { useRegisterANewUserMutation } from '../../features/api/blogApi'
+import renderServerError from '../../utils/renderServerError'
 import styles from './SignUp.module.scss'
 
 const SignUp = () => {
   const navigate = useNavigate()
+  const [registerUser, { isError, error, isSuccess }] = useRegisterANewUserMutation()
   const {
     handleSubmit,
     register,
@@ -14,6 +16,8 @@ const SignUp = () => {
   } = useForm()
   const password = watch('password')
   const isAuthError = error?.status === 422
+  const errorUsernameMessage = error?.data?.errors?.username ? `Username ${error.data.errors.username}` : ''
+  const errorEmailMessage = error?.data?.errors?.email ? `Email ${error.data.errors.email}` : ''
   const [checkboxStatus, setCheckboxStatus] = useState(false)
   const handleCheckboxChange = () => {
     setCheckboxStatus(!checkboxStatus)
@@ -23,8 +27,6 @@ const SignUp = () => {
       ? `${styles['form-custom-checkbox']} ${styles['form-custom-checkbox--active']}`
       : styles['form-custom-checkbox']
   }
-
-  const [registerUser, { isError, isLoading, error, isSuccess }] = useRegisterANewUserMutation()
 
   const onSubmit = (data) => {
     registerUser({
@@ -110,6 +112,7 @@ const SignUp = () => {
       </label>
       {errors.checkbox && <p className={styles['error-checkbox']}>{errors.checkbox.message}</p>}
       <input className={styles['form-submit']} type="submit" value="Create" />
+      {renderServerError(isError, isAuthError, errorUsernameMessage, errorEmailMessage)}
       <span className={styles['form-span']}>
         Already have an account?{' '}
         <Link className={styles['form-span__link']} to="/sign-in">

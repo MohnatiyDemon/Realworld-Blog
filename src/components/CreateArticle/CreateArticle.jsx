@@ -28,8 +28,8 @@ const CreateArticle = () => {
     setTags(newTags)
   }
 
-  const [createArticle, { data, isError, isSuccess: isCreateSuccess, isLoading, error }] = useCreateAnArticleMutation()
-  const [updateAnArticle, { isSuccess: isUpdateSuccess }] = useUpdateAnArticleMutation()
+  const [createArticle, { data, isError: isCreateError, isSuccess: isCreateSuccess }] = useCreateAnArticleMutation()
+  const [updateAnArticle, { isSuccess: isUpdateSuccess, isError: isUpdateError }] = useUpdateAnArticleMutation()
   const { data: articleData } = useGetAnArticleQuery(slug)
 
   const initialData =
@@ -51,7 +51,6 @@ const CreateArticle = () => {
     handleSubmit,
     register,
     formState: { errors },
-    reset,
   } = useForm({ defaultValues: initialData })
 
   const newArticleSlug = data?.article?.slug
@@ -85,6 +84,12 @@ const CreateArticle = () => {
       navigate('/successful-message', { state: { from: 'update-article', articleSlug: slug } })
     }
   }, [isCreateSuccess, isUpdateSuccess, slug, navigate])
+
+  useEffect(() => {
+    if (isCreateError || isUpdateError) {
+      navigate('/error-message')
+    }
+  }, [navigate, isCreateError, isCreateError])
 
   return (
     <form className={styles.CreateArticle} onSubmit={handleSubmit(onSubmit)}>

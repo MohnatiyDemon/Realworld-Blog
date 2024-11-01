@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { useExistingUserLoginMutation } from '../../features/api/blogApi'
 import { signInUser } from '../../stores/userSlice'
+import renderServerError from '../../utils/renderServerError'
 import styles from './SignIn.module.scss'
 
 const SignIn = () => {
@@ -19,6 +20,7 @@ const SignIn = () => {
   const [loginUser, { data, isLoading, isError, error, isSuccess }] = useExistingUserLoginMutation()
 
   const isAuthError = error?.status === 422
+  const errorMessage = 'Incorrect username or password.'
 
   const onSubmit = (user) => {
     loginUser({
@@ -51,7 +53,6 @@ const SignIn = () => {
           })}
         />
         {errors.email && <p className={styles['error-message']}>{errors.email.message}</p>}
-        {isAuthError && <p className={styles['error-message']}>Incorrect username or password.</p>}
       </label>
       <label className={styles['form-label']}>
         <span>Password</span>
@@ -64,10 +65,10 @@ const SignIn = () => {
           })}
         />
         {errors.password && <p className={styles['error-message']}>{errors.password.message}</p>}
-        {isAuthError && <p className={styles['error-message']}>Incorrect username or password.</p>}
       </label>
       <input className={styles['form-submit']} type="submit" value="Login" />
       <span className={styles['form-span']}>
+        {renderServerError(isError, isAuthError, errorMessage)}
         Don’t have an account?{' '}
         <Link className={styles['form-span__link']} to="/sign-up">
           Sign Up

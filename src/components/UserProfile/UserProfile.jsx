@@ -28,7 +28,7 @@ const UserProfile = () => {
 
   const navigate = useNavigate()
 
-  const [updateCurrentUser, { data, isError, isSuccess, isLoading, error }] = useUpdateCurrentUserMutation()
+  const [updateCurrentUser, { isError, isSuccess, error }] = useUpdateCurrentUserMutation()
 
   useEffect(() => {
     reset({
