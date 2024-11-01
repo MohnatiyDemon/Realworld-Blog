@@ -17,7 +17,7 @@ const SignIn = () => {
     formState: { errors },
   } = useForm()
 
-  const [loginUser, { data, isLoading, isError, error, isSuccess }] = useExistingUserLoginMutation()
+  const [loginUser, { data, isError, error, isSuccess }] = useExistingUserLoginMutation()
 
   const isAuthError = error?.status === 422
   const errorMessage = 'Incorrect username or password.'
@@ -34,7 +34,10 @@ const SignIn = () => {
       localStorage.setItem('user-data', JSON.stringify(data.user))
       navigate('/successful-message', { state: { from: 'sign-in' } })
     }
-  }, [isSuccess, navigate])
+    if (isError) {
+      navigate('/error-message')
+    }
+  }, [isSuccess, isError, navigate, dispatch])
 
   return (
     <form className={styles.SignIn} onSubmit={handleSubmit(onSubmit)}>

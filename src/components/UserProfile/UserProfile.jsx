@@ -8,8 +8,6 @@ import styles from './UserProfile.module.scss'
 
 const UserProfile = () => {
   const userData = useSelector((state) => state.user.user)
-  console.log(userData)
-
   const {
     handleSubmit,
     register,
@@ -23,12 +21,10 @@ const UserProfile = () => {
       avatar: userData?.image,
     },
   })
-
   const dispatch = useDispatch()
-
   const navigate = useNavigate()
 
-  const [updateCurrentUser, { isError, isSuccess, error }] = useUpdateCurrentUserMutation()
+  const [updateCurrentUser, { isError, isSuccess }] = useUpdateCurrentUserMutation()
 
   useEffect(() => {
     reset({
@@ -52,11 +48,10 @@ const UserProfile = () => {
       dispatch(logOutUser())
       navigate('/successful-message', { state: { from: 'profile' } })
     }
-  }, [isSuccess, dispatch])
-
-  if (isError) {
-    console.log(error)
-  }
+    if (isError) {
+      navigate('/error-message')
+    }
+  }, [isSuccess, isError, dispatch])
 
   return (
     <form className={styles.UserProfile} onSubmit={handleSubmit(onSubmit)}>
