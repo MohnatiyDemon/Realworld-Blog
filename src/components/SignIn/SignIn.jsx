@@ -24,7 +24,7 @@ const SignIn = () => {
 
   const onSubmit = (user) => {
     loginUser({
-      email: user.email,
+      email: user.email.toLowerCase(),
       password: user.password,
     })
   }
@@ -34,7 +34,7 @@ const SignIn = () => {
       localStorage.setItem('user-data', JSON.stringify(data.user))
       navigate('/successful-message', { state: { from: 'sign-in' } })
     }
-    if (isError) {
+    if (isError && !isAuthError) {
       navigate('/error-message')
     }
   }, [isSuccess, isError, navigate, dispatch])
